@@ -1,7 +1,7 @@
 <template>
   <div class="item" :class="todo.completed?'completed':''">
-    <el-checkbox v-model="todo.completed">{{todo.content}}</el-checkbox>
-    <el-button type="danger" icon="el-icon-delete" circle @click="del"></el-button>
+    <el-checkbox class="todo-content" v-model="todo.completed">{{todo.content}}</el-checkbox>
+    <el-button type="danger" icon="el-icon-delete" circle @click="del" class="del-btn"></el-button>
   </div>
 </template>
 
@@ -37,8 +37,11 @@ export default {
   left: 0;
   right: 0;
   margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
 }
-[role="checkbox"] {
-  width: 80%;
+.todo-content {
+  width: 90%;
+  word-wrap: break-word;
 }
 </style>

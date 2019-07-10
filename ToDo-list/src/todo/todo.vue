@@ -21,13 +21,7 @@ export default {
   data() {
     return {
       input: "",
-      todos: [
-        {
-          id: 0,
-          content: "test",
-          completed: false
-        }
-      ],
+      todos: [],
       filter: {
           nums: this.todos
       }
@@ -35,12 +29,15 @@ export default {
   },
   methods: {
     additem(e) {
-      console.log("enter!");
+      if (!e.target.value) {
+        return
+      }
       this.todos.unshift({
         id: id++,
         content: e.target.value.trim(),
         completed: false
       });
+      e.target.value = ''
     },
     delTodo(id) {
       this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1);

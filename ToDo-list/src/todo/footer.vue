@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     change() {
-      this.author = this.author == "yiny" ? "Innei" : "yiny";
+      this.author = this.author == "yiny" ? new Date().getFullYear() : "yiny";
     }
   }
 };

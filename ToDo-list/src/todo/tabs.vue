@@ -1,18 +1,13 @@
 <template>
   <div class="helper">
     <span class="total">{{unCompletedTodo ? '还剩 ' + unCompletedTodo + ' 个 ToDo' : ''}}</span>
+    
     <span class="right" @click="clear"> <el-button type="danger" plain :disabled="!todos.length">清空</el-button></span>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      states: ["all", "active", "complete"],
-      num: 0
-    };
-  },
   props: {
     filter: {
       type: Object,
