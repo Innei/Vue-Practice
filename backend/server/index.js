@@ -15,6 +15,7 @@ const Article = mongoose.model(
   })
 );
 
+module.exports = Article;
 app.use(require("cors")());
 app.use(express.json());
 app.get("/", async (req, res) => {
@@ -28,8 +29,29 @@ app.post("/api/posts", async (req, res) => {
 });
 
 app.get("/api/posts", async (req, res) => {
-    const posts = await Article.find()
-    res.send(posts)
+  const posts = await Article.find();
+  res.send(posts);
+});
+
+// 删除文章
+app.delete("/api/posts/:id", async (req, res) => {
+  await Article.findByIdAndDelete(req.params.id);
+  res.send({
+    status: "success",
+    message: "删除成功"
+  });
+});
+
+// 文章详情
+app.get("/api/posts/:id", async (req, res) => {
+  const detail = await Article.findById(req.params.id);
+  res.send(detail);
+});
+
+// 修改保存文章
+app.post("/api/posts/:id", async (req, res) => {
+  const post = await Article.findByIdAndUpdate(req.params.id, req.body)
+  res.send(post);
 });
 
 app.listen(3000, () => {

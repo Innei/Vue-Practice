@@ -8,7 +8,7 @@
         </el-radio-group>
         <el-menu
           router
-          default-active="1-2"
+          :default-active="$route.path"
           class="el-menu-vertical-demo"
           @open="handleOpen"
           @close="handleClose"
@@ -21,8 +21,8 @@
             </template>
             <el-menu-item-group>
               <span slot="title">分组一</span>
-              <el-menu-item index="1-1" route="/posts/create">新建文章</el-menu-item>
-              <el-menu-item index="1-2" route="/posts/index">文章列表</el-menu-item>
+              <el-menu-item index="/posts/create">新建文章</el-menu-item>
+              <el-menu-item index="/posts/index">文章列表</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
@@ -51,13 +51,7 @@
 <script>
 export default {
   data() {
-    const item = {
-      date: "2016-05-02",
-      name: "王小虎",
-      address: "上海市普陀区金沙江路 1518 弄"
-    };
     return {
-      tableData: Array(20).fill(item),
       isCollapse: false
     };
   },
