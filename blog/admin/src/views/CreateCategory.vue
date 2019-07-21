@@ -58,10 +58,19 @@ export default {
     fetch() {
       this.$http.get(`categories/${this.id}`).then(res => {
         this.table = res.data;
+      }).catch(err => {
+        this.$message({
+          type: "success",
+          message: "获取信息失败"
+        })
       });
     },
     async fetchParens() {
-      const res = await this.$http.get("categories");
+      const res = await this.$http.get("categories", {
+        params: {
+          edit: this.id ? this.id : false
+        }
+      });
       this.parents = res.data;
     }
   },
