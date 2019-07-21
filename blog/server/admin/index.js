@@ -40,9 +40,11 @@ module.exports = app => {
     const category = await Category.create(req.body);
     res.send(category);
   });
+  // 分类列表
   router.get("/categories", async (req, res) => {
-    res.send(await Category.find());
+    res.send(await Category.find().populate('parents'));
   });
+  // 删除分类
   router.delete("/categories/:id", async (req, res) => {
     await Category.findByIdAndDelete(req.params.id);
     res.send({
@@ -50,6 +52,14 @@ module.exports = app => {
       message: "删除成功"
     });
   });
-  
+  // 分类信息
+  router.get("/categories/:id", async (req, res) => {
+    const cate = await Category.findById(req.params.id);
+    res.send(cate);
+  });
+  // 修改分类
+  router.post("/categories/:id", async (req, res) => {
+    res.send(await Category.findByIdAndUpdate(req.params.id, req.body));
+  });
   app.use("/admin/api", router);
 };
