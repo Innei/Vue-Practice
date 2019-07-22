@@ -6,6 +6,16 @@
     <el-form-item label="文章内容">
       <el-input type="textarea" v-model="article.body"></el-input>
     </el-form-item>
+    <el-form-item label="分类">
+      <el-select v-model="article.categories" multiple placeholder="请选择">
+        <el-option
+          v-for="item in categories"
+          :key="item._id"
+          :label="item.name"
+          :value="item._id"
+        ></el-option>
+      </el-select>
+    </el-form-item>
     <el-form-item label="文章缩略图">
       <el-upload
         class="upload-demo"
@@ -31,11 +41,14 @@
 export default {
   data() {
     return {
-      article: {}
+      article: {},
+      categories: []
     };
   },
   methods: {
     saveArticle() {
+      this.$set(this.article, "ctime", Date.now().toString());
+      this.$set(this.article, "mtime", Date.now().toString());
       this.$http.post("rest/posts", this.article).then(res => {
         this.$message({
           type: "success",
@@ -44,12 +57,20 @@ export default {
         this.$router.push("/posts/index");
       });
     },
-     handleSuccess(res) {
+    handleSuccess(res) {
       this.$set(this.article, "img", res.url);
     },
     cancel() {
       this.$router.go(-1);
+    },
+    fetchCategory() {
+      this.$http.get("rest/categories").then(res => {
+        this.categories = res.data;
+      });
     }
+  },
+  created(){
+    this.fetchCategory()
   }
 };
 </script>

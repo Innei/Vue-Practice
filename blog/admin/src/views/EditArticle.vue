@@ -6,6 +6,11 @@
     <el-form-item label="文章内容">
       <el-input type="textarea" v-model="article.body"></el-input>
     </el-form-item>
+    <el-form-item label="分类">
+      <el-select v-model="article.categories" multiple placeholder="请选择">
+        <el-option v-for="item in categories" :key="item._id" :label="item.name" :value="item._id"></el-option>
+      </el-select>
+    </el-form-item>
     <el-form-item label="文章缩略图">
       <el-upload
         class="upload-demo"
@@ -19,6 +24,9 @@
           <em>点击上传</em>
         </div>
       </el-upload>
+    </el-form-item>
+    <el-form-item>
+      <el-form-item label="上次修改于">{{Date(article.mtime).toLocaleString()}}</el-form-item>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" native-type="submit">修改</el-button>
@@ -36,6 +44,7 @@ export default {
   },
   methods: {
     updateArticle() {
+      this.$set(this.article, "mtime", Date.now().toString());
       this.$http
         .post("/rest/posts/" + this.$route.params.id, this.article)
         .then(res => {
@@ -56,9 +65,15 @@ export default {
       this.$http.get("rest/posts/" + this.$route.params.id).then(res => {
         this.article = res.data;
       });
+    },
+    fetchCategory() {
+      this.$http.get("rest/categories").then(res => {
+        this.categories = res.data;
+      });
     }
   },
   created() {
+    this.fetchCategory();
     this.fetch();
   }
 };

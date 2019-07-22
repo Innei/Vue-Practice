@@ -42,7 +42,9 @@ module.exports = app => {
 
   // 修改保存
   router.post("/:id", async (req, res) => {
-    const model = await req.Model.findByIdAndUpdate(req.params.id, req.body);
+    const model = await req.Model.findByIdAndUpdate(req.params.id, req.body, {
+      
+    });
     res.send(model);
   });
 

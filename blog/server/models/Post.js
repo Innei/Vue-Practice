@@ -4,7 +4,15 @@ const Article = mongoose.model(
   new mongoose.Schema({
     title: String,
     body: String,
-    img: String
+    img: String,
+    categories: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Category"
+      }
+    ],
+    ctime: String,
+    mtime: String
   })
 );
 
