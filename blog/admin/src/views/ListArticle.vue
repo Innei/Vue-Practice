@@ -20,13 +20,13 @@ export default {
   },
   methods: {
     fetch() {
-      this.$http.get("posts").then(res => (this.posts = res.data));
+      this.$http.get("rest/posts").then(res => (this.posts = res.data));
     },
     edit(id) {
       this.$router.push("/posts/edit/" + id);
     },
     remove(id) {
-      this.$http.delete("posts/" + id).then(res => {
+      this.$http.delete("rest/posts/" + id).then(res => {
         this.$message({
           type: "success",
           message: res.data.message

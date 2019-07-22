@@ -6,6 +6,20 @@
     <el-form-item label="文章内容">
       <el-input type="textarea" v-model="article.body"></el-input>
     </el-form-item>
+    <el-form-item label="文章缩略图">
+      <el-upload
+        class="upload-demo"
+        drag
+        :action="$http.defaults.baseURL + '/upload'"
+        :on-success="handleSuccess"
+      >
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">
+          将文件拖到此处，或
+          <em>点击上传</em>
+        </div>
+      </el-upload>
+    </el-form-item>
     <el-form-item>
       <el-button type="primary" native-type="submit">修改</el-button>
       <el-button @click="cancel">取消</el-button>
@@ -23,7 +37,7 @@ export default {
   methods: {
     updateArticle() {
       this.$http
-        .post("/posts/" + this.$route.params.id, this.article)
+        .post("/rest/posts/" + this.$route.params.id, this.article)
         .then(res => {
           this.$message({
             type: "success",
@@ -32,11 +46,14 @@ export default {
           this.$router.push("/posts/index");
         });
     },
+    handleSuccess(res) {
+      this.$set(this.article, "img", res.url);
+    },
     cancel() {
       this.$router.go(-1);
     },
     fetch() {
-      this.$http.get("posts/" + this.$route.params.id).then(res => {
+      this.$http.get("rest/posts/" + this.$route.params.id).then(res => {
         this.article = res.data;
       });
     }

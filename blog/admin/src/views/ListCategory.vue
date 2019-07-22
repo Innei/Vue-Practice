@@ -21,13 +21,13 @@ export default {
   },
   methods: {
     fetch() {
-      this.$http.get("categories").then(res => (this.posts = res.data));
+      this.$http.get("rest/categories").then(res => (this.posts = res.data));
     },
     edit(id) {
       this.$router.push("/categories/edit/" + id);
     },
     remove(id) {
-      this.$http.delete("categories/" + id).then(res => {
+      this.$http.delete("rest/categories/" + id).then(res => {
         this.$message({
           type: "success",
           message: res.data.message

@@ -35,7 +35,7 @@ export default {
   methods: {
     saveCategory() {
       if (this.id) {
-        this.$http.post("/categories/" + this.id, this.table).then(res => {
+        this.$http.post("rest/categories/" + this.id, this.table).then(res => {
           this.$message({
             type: "success",
             message: "保存成功"
@@ -43,7 +43,7 @@ export default {
           this.$router.push("/categories/index");
         });
       } else {
-        this.$http.post("/categories", this.table).then(res => {
+        this.$http.post("rest/categories", this.table).then(res => {
           this.$message({
             type: "success",
             message: "创建成功"
@@ -56,7 +56,7 @@ export default {
       this.$router.go(-1);
     },
     fetch() {
-      this.$http.get(`categories/${this.id}`).then(res => {
+      this.$http.get(`rest/categories/${this.id}`).then(res => {
         this.table = res.data;
       }).catch(err => {
         this.$message({
@@ -66,7 +66,7 @@ export default {
       });
     },
     async fetchParens() {
-      const res = await this.$http.get("categories", {
+      const res = await this.$http.get("rest/categories", {
         params: {
           edit: this.id ? this.id : false
         }

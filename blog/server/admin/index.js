@@ -47,7 +47,7 @@ module.exports = app => {
   });
 
   app.use(
-    "/admin/api/:res",
+    "/admin/api/rest/:res",
     async (req, res, next) => {
       const ModelName = require("inflection").classify(req.params.res);
       req.Model = require(`../models/${ModelName}`); // 处理后挂载到请求体上
@@ -55,4 +55,13 @@ module.exports = app => {
     },
     router
   );
+  const multer = require("multer");
+  const upload = multer({
+    dest: __dirname + "/../uploads"
+  });
+  app.post("/admin/api/upload", upload.single("file"), async (req, res) => {
+    const file = req.file;
+    file.url = 'http://localhost:3000/uploads/' + file.filename
+    res.send(file);
+  });
 };
