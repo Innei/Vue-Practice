@@ -1,5 +1,11 @@
 <template>
-  <el-form ref="form" @submit.native.prevent="updateArticle" :model="article" label-width="120px">
+  <el-form
+    ref="form"
+    @submit.native.prevent="id ? updateArticle: createArticle"
+    :model="article"
+    label-width="120px"
+  >
+    <h1>{{id ? '修改' : '新建'}}文章</h1>
     <el-form-item label="文章标题">
       <el-input v-model="article.title"></el-input>
     </el-form-item>
@@ -36,7 +42,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   data() {
     return {
@@ -44,7 +50,21 @@ export default {
       categories: []
     };
   },
+  props: {
+    id: {}
+  },
   methods: {
+    createArticle() {
+      this.$set(this.article, "ctime", Date.now().toString());
+      this.$set(this.article, "mtime", Date.now().toString());
+      this.$http.post("rest/posts", this.article).then(res => {
+        this.$message({
+          type: "success",
+          message: "文章创建成功"
+        });
+        this.$router.push("/posts/index");
+      });
+    },
     updateArticle() {
       this.$set(this.article, "mtime", Date.now().toString());
       this.$http
@@ -94,8 +114,15 @@ export default {
     }
   },
   created() {
+    if (this.id) {
+      this.fetch();
+    }
     this.fetchCategory();
-    this.fetch();
+  },
+  watch: {
+    id(){
+      this.article = {}
+    }
   }
 };
 </script>
