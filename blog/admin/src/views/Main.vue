@@ -45,7 +45,9 @@
           <span>王小虎</span>
         </el-header>
         <el-main>
+          <transition name="fade"  mode="out-in">
           <router-view></router-view>
+          </transition>
         </el-main>
       </el-container>
     </el-container>
@@ -84,5 +86,10 @@ export default {
   width: 200px;
   min-height: 400px;
 }
-
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>

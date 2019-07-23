@@ -4,7 +4,7 @@
       <el-input v-model="article.title"></el-input>
     </el-form-item>
     <el-form-item label="文章内容">
-      <el-input type="textarea" v-model="article.body"></el-input>
+      <mavon-editor v-model="article.body" ref="md" @imgAdd="$imgAdd" />
     </el-form-item>
     <el-form-item label="分类">
       <el-select v-model="article.categories" multiple placeholder="请选择">
@@ -36,10 +36,12 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
-      article: {}
+      article: {},
+      categories: []
     };
   },
   methods: {
@@ -69,6 +71,25 @@ export default {
     fetchCategory() {
       this.$http.get("rest/categories").then(res => {
         this.categories = res.data;
+      });
+    },
+    $imgAdd(pos, $file) {
+      // 第一步.将图片上传到服务器.
+      var formdata = new FormData();
+      formdata.append("file", $file);
+      axios({
+        url: this.$http.defaults.baseURL + "/upload",
+        method: "post",
+        data: formdata,
+        headers: { "Content-Type": "multipart/form-data" }
+      }).then(res => {
+        // 第二步.将返回的url替换到文本原位置![...](./0) -> ![...](url)
+        /**
+         * $vm 指为mavonEditor实例，可以通过如下两种方式获取
+         * 1. 通过引入对象获取: `import {mavonEditor} from ...` 等方式引入后，`$vm`为`mavonEditor`
+         * 2. 通过$refs获取: html声明ref : `<mavon-editor ref=md ></mavon-editor>，`$vm`为 `this.$refs.md`
+         */
+        this.$refs.md.$img2Url(pos, res.data.url);
       });
     }
   },
