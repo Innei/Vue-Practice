@@ -1,10 +1,5 @@
 <template>
-  <el-form
-    ref="form"
-    @submit.native.prevent="id ? updateArticle: createArticle"
-    :model="article"
-    label-width="120px"
-  >
+  <el-form ref="form" @submit.native.prevent="updateArticle" :model="article" label-width="120px">
     <h1>{{id ? '修改' : '新建'}}文章</h1>
     <el-form-item label="文章标题">
       <el-input v-model="article.title"></el-input>
@@ -35,7 +30,7 @@
       <el-form-item label="上次修改于">{{Date(article.mtime).toLocaleString()}}</el-form-item>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" native-type="submit">修改</el-button>
+      <el-button type="primary" native-type="submit">{{id ? "修改": "创建" }}</el-button>
       <el-button @click="cancel">取消</el-button>
     </el-form-item>
   </el-form>
@@ -54,19 +49,20 @@ export default {
     id: {}
   },
   methods: {
-    createArticle() {
-      this.$set(this.article, "ctime", Date.now().toString());
-      this.$set(this.article, "mtime", Date.now().toString());
-      this.$http.post("rest/posts", this.article).then(res => {
-        this.$message({
-          type: "success",
-          message: "文章创建成功"
-        });
-        this.$router.push("/posts/index");
-      });
-    },
     updateArticle() {
       this.$set(this.article, "mtime", Date.now().toString());
+      if (!this.id) {
+        this.$set(this.article, "ctime", Date.now().toString());
+        this.$http.post("rest/posts", this.article).then(res => {
+          this.$message({
+            type: "success",
+            message: "文章创建成功"
+          });
+          this.$router.push("/posts/index");
+          return;
+        });
+      }
+
       this.$http
         .post("/rest/posts/" + this.$route.params.id, this.article)
         .then(res => {
@@ -120,8 +116,8 @@ export default {
     this.fetchCategory();
   },
   watch: {
-    id(){
-      this.article = {}
+    id() {
+      this.article = {};
     }
   }
 };

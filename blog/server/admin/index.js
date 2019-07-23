@@ -42,9 +42,11 @@ module.exports = app => {
 
   // 修改保存
   router.post("/:id", async (req, res) => {
-    const model = await req.Model.findByIdAndUpdate(req.params.id, req.body, {
-      
-    });
+    const model = await req.Model.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {}
+    );
     res.send(model);
   });
 
@@ -63,7 +65,39 @@ module.exports = app => {
   });
   app.post("/admin/api/upload", upload.single("file"), async (req, res) => {
     const file = req.file;
-    file.url = 'http://localhost:3000/uploads/' + file.filename
+    file.url = "http://localhost:3000/uploads/" + file.filename;
     res.send(file);
+  });
+
+  // 登陆接口
+  app.post("/admin/api/login", async (req, res) => {
+    const { username, password } = req.body;
+    // 找用户
+    const User = require("../models/AdminUser");
+    const user = await User.findOne({
+      username
+    }).select("+password");
+    if (!user) {
+      return res.status(422).send({
+        message: "用户不存在"
+      });
+    }
+    // 校验密码
+    const isValid = require("bcrypt").compareSync(password, user.password);
+    if (!isValid) {
+      return res.status(422).send({
+        message: "密码错误"
+      });
+    }
+    // 返回 token
+    const jwt = require("jsonwebtoken");
+    const token = jwt.sign(
+      {
+        id: user._id
+      },
+      app.get("secret")
+    );
+
+    res.send({ token });
   });
 };

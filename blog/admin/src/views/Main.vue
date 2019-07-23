@@ -1,7 +1,8 @@
 <template>
     <el-container style="height: 100vh">
-      <el-aside width="200px" style="background-color: rgb(238, 241, 246);overflow:visible">
-        <el-radio-group v-model="isCollapse">
+      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+        
+       <el-radio-group v-model="isCollapse">
           <el-radio-button :label="false">展开</el-radio-button>
           <el-radio-button :label="true">收起</el-radio-button>
         </el-radio-group>
@@ -27,6 +28,22 @@
               <span slot="title">分类</span>
               <el-menu-item index="/categories/create">新建分类</el-menu-item>
               <el-menu-item index="/categories/index">分类列表</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="2">
+            <template slot="title">
+              <i class="el-icon-tickets"></i>
+              <span slot="title">应用管理</span>
+            </template>
+             <el-menu-item-group>
+              <span slot="title">用户</span>
+              <el-menu-item index="/categories/create">新建用户</el-menu-item>
+              <el-menu-item index="/categories/index">用户列表</el-menu-item>
+            </el-menu-item-group>
+            <el-menu-item-group>
+              <span slot="title">用户</span>
+              <el-menu-item index="/admin_users/create">新建用户</el-menu-item>
+              <el-menu-item index="/admin_users/index">用户列表</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
@@ -83,7 +100,7 @@ export default {
   min-height: 100vh;
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
+  width: 194px;
   min-height: 400px;
 }
 .fade-enter-active, .fade-leave-active {
@@ -91,5 +108,27 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(189, 195, 199, .6);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track:hover {
+    border-radius: 5px;
+    background: rgba(189, 195, 199, .1);
+}
+
+body::-webkit-scrollbar-thumb {
+    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset 0 -1px 0 rgba(0, 0, 0, .07);
+}
+
+body::-webkit-scrollbar-track:hover {
+    border-radius: 0;
+    box-shadow: inset 1px 0 0 rgba(0, 0, 0, .1);
 }
 </style>

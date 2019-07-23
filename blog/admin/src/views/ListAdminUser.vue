@@ -1,8 +1,6 @@
 <template>
-  <el-table :data="posts">
-    <el-table-column prop="name" label="分类" width="220"></el-table-column>
-    <el-table-column prop="parents.name" label="父分类"></el-table-column>
-
+  <el-table :data="users">
+    <el-table-column prop="username" label="用户" ></el-table-column>
     <el-table-column fixed="right" label="操作" width="100">
       <template slot-scope="scope">
         <el-button @click="edit(scope.row._id)" type="text" size="small">编辑</el-button>
@@ -16,23 +14,23 @@
 export default {
   data() {
     return {
-      posts: []
+      users: []
     };
   },
   methods: {
     fetch() {
-      this.$http.get("rest/categories").then(res => (this.posts = res.data));
+      this.$http.get("rest/admin_users").then(res => (this.users = res.data));
     },
     edit(id) {
-      this.$router.push("/categories/edit/" + id);
+      this.$router.push("/admin_users/edit/" + id);
     },
     remove(row) {
-      this.$confirm(`是否删除分类 "${row.name}"`, "警告", {
+      this.$confirm(`是否删除用户 "${row.username}"`, "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(async () => {
-        this.$http.delete("rest/categories/" + row._id).then(res => {
+        this.$http.delete("rest/admin_users/" + row._id).then(res => {
           this.$message({
             type: "success",
             message: res.data.message

@@ -3,13 +3,7 @@
     <router-view></router-view>
   </div>
 </template>
-
-<script>
-
-</script>
-
 <style>
-
 body,
 html {
   margin: 0;
