@@ -16,7 +16,8 @@
       <el-upload
         class="upload-demo"
         drag
-        :action="$http.defaults.baseURL + '/upload'"
+        :action="uploadUrl"
+        :headers="getAuthHeaders()"
         :on-success="handleSuccess"
       >
         <i class="el-icon-upload"></i>
