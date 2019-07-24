@@ -27,7 +27,7 @@
       </el-upload>
     </el-form-item>
     <el-form-item>
-      <el-form-item label="上次修改于">{{Date(article.mtime).toLocaleString()}}</el-form-item>
+      <el-form-item v-if="id" label="上次修改于">{{Date(article.mtime).toLocaleString()}}</el-form-item>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" native-type="submit">{{id ? "修改": "创建" }}</el-button>

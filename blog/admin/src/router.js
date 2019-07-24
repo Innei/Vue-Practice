@@ -20,8 +20,12 @@ export default new Router({
     { path: "/login", name: "login", component: Login },
     {
       path: "/",
+      redirect: "/admin"
+    },
+    {
+      path: "/admin",
       name: "home",
-      redirect: "posts/index",
+      // redirect: "posts/index",
       component: Main,
       children: [
         // 使用子路由, 父路由中的组件必须要存在 router-view 标签才能显示
