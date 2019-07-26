@@ -9,6 +9,7 @@ app.use('/uploads', express.static(__dirname + '/uploads'))
 
 require('./plugins/db.js')(app)
 require('./admin/index')(app)
+require('./admin/auth')(app)
 
 app.listen(3000, () => {
   console.log("http://127.0.0.1:3000");
