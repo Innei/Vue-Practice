@@ -17,7 +17,7 @@
         class="upload-demo"
         drag
         :action="uploadUrl"
-        :headers="getAuthHeaders()"
+        :headers="getAuthHeaders"
         :on-success="handleSuccess"
       >
         <i class="el-icon-upload"></i>
@@ -98,7 +98,10 @@ export default {
         url: this.$http.defaults.baseURL + "/upload",
         method: "post",
         data: formdata,
-        headers: { "Content-Type": "multipart/form-data" }
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": localStorage.token || ""
+        }
       }).then(res => {
         // 第二步.将返回的url替换到文本原位置![...](./0) -> ![...](url)
         /**
