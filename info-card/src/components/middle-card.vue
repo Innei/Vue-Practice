@@ -3,7 +3,7 @@
     <div class="card fade-up">
       <div class="f">
         <div class="left fade-up delay">
-          <img src="../assets/avatar/1.jpg" />
+          <img :src="data.avatar" />
         </div>
         <div class="right fade-up delay">
           <div style="padding: 1rem">
@@ -75,19 +75,7 @@
     text-align: center
   }
 }
-@keyframes fade-up {
-  0% {
-    transform: translateY(5px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-.fade-up {
-  animation: fade-up 1s ease-in forwards;
-}
+
 .delay {
   animation-delay: 1s;
   opacity: 0;

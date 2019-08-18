@@ -43,6 +43,14 @@ export default {
         {
           name: "About",
           url: "/about"
+        },
+        {
+          name: "Photo",
+          url: "/photo"
+        },
+        {
+          name: "Connect",
+          url: "/connect"
         }
       ]
     };

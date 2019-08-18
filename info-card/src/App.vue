@@ -36,6 +36,11 @@ body::before {
 .fade-up {
   animation: fade-up 1s ease-in forwards;
 }
+
+::-webkit-scrollbar {
+  height: 0;
+  width: 0
+}
 </style>
 
 <script>

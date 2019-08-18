@@ -24,7 +24,12 @@ export default new Router({
         },
         {
           path: '/photo',
-          component: () => import('./views/Photo.vue')
+          component: () => import('./views/Photo.vue'),
+          meta: 'connect'
+        },
+        {
+          path: '/connect',
+          component: () => import('./views/Connect.vue')
         }
       ]
     }
