@@ -22,6 +22,20 @@ body::before {
   position: absolute;
   background: url("./assets/background.png");
 }
+
+@keyframes fade-up {
+  0% {
+    transform: translateY(5px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.fade-up {
+  animation: fade-up 1s ease-in forwards;
+}
 </style>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
-  <div class="btn">
-    <router-link :to="'/about'">
+  <div class="btn" v-if="JSON.stringify(route) !== '{}'">
+    <router-link :to="'/'+route">
       <font-awesome-icon :icon="['fas', 'chevron-down']" />
     </router-link>
   </div>

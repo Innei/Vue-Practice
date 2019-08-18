@@ -7,7 +7,7 @@
       </transition>
     </main>
     <footer>
-      <Down></Down>
+      <Down :route="$route.meta"></Down>
     </footer>
   </div>
 </template>
@@ -20,7 +20,7 @@ export default {
   },
   watch: {
     $route(val) {
-      console.log(val)
+     
     }
   }
 };
@@ -29,7 +29,7 @@ export default {
 <style lang="scss" scoped>
 footer {
   position: fixed;
-  bottom: 2rem;
+  bottom: 1.5rem;
   left: 0;
   right: 0;
   text-align: center;

@@ -7,7 +7,7 @@
     </div>
     <card :data="data" />
     <div class="footer">
-      <div class="box">
+      <div class="box fade-up">
         <p>很高兴能认识你</p>
       </div>
     </div>
@@ -38,6 +38,10 @@
   text-align: center;
   left: 0;
   right: 0;
+}
+.footer .box {
+  animation-delay: 3s;
+  opacity: 0;
 }
 @media (max-width: 650px) {
   .header {
