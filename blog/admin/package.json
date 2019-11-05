@@ -14,7 +14,7 @@
     "element-ui": "^2.4.5",
     "express": "^5.0.0-alpha.7",
     "mavon-editor": "^2.7.5",
-    "mongoose": "^5.6.5",
+    "mongoose": "^5.7.5",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3"
   },
